@@ -1,13 +1,14 @@
 // Stockroom Prisma schema
-// Local development uses SQLite. In production, switch `provider` to
-// "postgresql" and set DATABASE_URL to your Postgres connection string.
+// PostgreSQL is used for both local development and production. Set
+// DATABASE_URL to a Postgres connection string, e.g.
+//   postgresql://user:password@host:5432/stockroom?schema=public
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
