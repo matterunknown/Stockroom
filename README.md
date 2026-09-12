@@ -127,6 +127,24 @@ Settings → Environment Variables, point `DATABASE_URL` at your production
 Postgres, and set your production `APP_URL` and Stripe webhook endpoint
 (`https://<your-domain>/api/stripe/webhook`).
 
+### Vercel + Neon (Marketplace)
+
+If you attach Postgres through the Vercel Marketplace (Neon), Vercel injects
+`POSTGRES_*` env vars (`POSTGRES_PRISMA_URL`, `POSTGRES_URL`,
+`POSTGRES_URL_NON_POOLING` / `DATABASE_URL_UNPOOLED`, etc.) but does **not**
+set `DATABASE_URL`, which is what Prisma reads from `prisma/schema.prisma`.
+
+Stockroom aliases these automatically — both at build time
+(`next.config.js`) and at runtime before `PrismaClient` is constructed
+(`src/lib/db.ts`) — in this order:
+
+1. `DATABASE_URL` (if you set one explicitly, it wins)
+2. `POSTGRES_PRISMA_URL` (pooled URL, preferred for Prisma)
+3. `POSTGRES_URL` (pooled URL, fallback)
+
+So a production deploy with only the Neon integration attached and no manual
+`DATABASE_URL` will connect correctly.
+
 ## Scripts
 
 ```bash
