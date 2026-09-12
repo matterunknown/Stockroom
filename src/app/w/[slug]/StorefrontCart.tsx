@@ -230,8 +230,8 @@ export default function StorefrontCart({
             {submitting ? "Redirecting to Stripe…" : "Place order & pay"}
           </button>
           <p className="text-[11px] text-ink/50 text-center">
-            You&apos;ll pay {"the maker"} directly via Stripe. No buyer account
-            needed.
+            Payment is processed securely by Stripe via Stockroom (the merchant
+            of record). No buyer account needed.
           </p>
         </form>
       </aside>

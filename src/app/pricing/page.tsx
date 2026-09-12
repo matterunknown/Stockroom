@@ -67,8 +67,13 @@ export default function PricingPage() {
           <strong>How this compares:</strong> Faire, Abound and Bulletin
           typically take 15%+ of every wholesale order, plus a 15% commission
           on every reorder from that buyer, forever. Stockroom takes 0%.
-          You&apos;re the merchant of record — funds land in your Stripe
-          account.
+        </p>
+        <p className="mt-4 text-sm text-ink/60 max-w-3xl">
+          <strong>Merchant of record:</strong> Stockroom is the merchant of
+          record for the soft launch. Buyer payments are charged through
+          Stockroom&apos;s platform Stripe account, and Stockroom settles net
+          proceeds to you out-of-band. Direct maker payouts via Stripe Connect
+          will ship post-launch.
         </p>
       </main>
       <SiteFooter />
