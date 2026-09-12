@@ -119,7 +119,8 @@ export default async function StorefrontPage({
         )}
         <p className="mt-10 text-xs text-ink/50">
           Powered by Stockroom · Commission-free wholesale for makers. Card
-          payments processed by Stripe (~2.9% + $0.30 fee, paid to Stripe).
+          payments processed by Stockroom via Stripe Checkout (Stripe fees
+          ~2.9% + $0.30 per order apply).
         </p>
       </main>
     </div>

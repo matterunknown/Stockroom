@@ -7,8 +7,8 @@ export default function SiteFooter() {
           wholesale for makers.
         </div>
         <div>
-          Payments processed by Stripe. Stripe fees (~2.9% + $0.30 per order)
-          apply.
+          Card payments processed by Stockroom via Stripe Checkout. Stripe
+          fees (~2.9% + $0.30 per order) apply. Stockroom takes 0% commission.
         </div>
       </div>
     </footer>

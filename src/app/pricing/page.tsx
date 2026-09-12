@@ -13,8 +13,8 @@ export default function PricingPage() {
           Simple pricing. Zero commission.
         </h1>
         <p className="text-ink/70 max-w-2xl">
-          Stockroom never takes a cut of your sales. You pay Stripe processing
-          fees (~2.9% + $0.30 per order) directly to Stripe — that&apos;s it.
+          Stockroom never takes a cut of your sales. Only Stripe processing
+          fees (~2.9% + $0.30 per order) apply — that&apos;s it.
         </p>
 
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -67,9 +67,22 @@ export default function PricingPage() {
           <strong>How this compares:</strong> Faire, Abound and Bulletin
           typically take 15%+ of every wholesale order, plus a 15% commission
           on every reorder from that buyer, forever. Stockroom takes 0%.
-          You&apos;re the merchant of record — funds land in your Stripe
-          account.
         </p>
+        <div className="mt-6 max-w-3xl text-xs text-ink/60 space-y-2">
+          <p>
+            <strong>How payments work in v1:</strong> Stockroom is the
+            merchant of record for the MVP. Wholesale orders are charged
+            through platform Stripe Checkout (Stripe processing fees ~2.9% +
+            $0.30 per order apply). Stockroom&apos;s platform commission is
+            <strong> $0</strong> on both plans.
+          </p>
+          <p>
+            Payouts to makers are coordinated separately during onboarding —
+            there is no &ldquo;connect your Stripe account&rdquo; step in v1
+            and no Stripe Connect. Direct maker settlement is on the
+            post-launch roadmap.
+          </p>
+        </div>
       </main>
       <SiteFooter />
     </>

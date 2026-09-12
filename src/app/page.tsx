@@ -18,7 +18,8 @@ export default function LandingPage() {
           <p className="mt-6 max-w-2xl text-lg text-ink/70">
             Stockroom gives artisan makers a shareable wholesale order link.
             Your buyers order at your prices, above your minimums, and pay by
-            card. You keep 100% of the sale — no platform commission, ever.
+            card. Stockroom takes <strong>0% commission</strong> on every
+            order — only Stripe processing fees apply.
           </p>
           <div className="mt-10 flex flex-wrap gap-3">
             <Link href="/signup" className="btn-primary">
@@ -29,8 +30,10 @@ export default function LandingPage() {
             </Link>
           </div>
           <p className="mt-4 text-xs text-ink/50">
-            Payments settled via Stripe. Stripe fees (~2.9% + $0.30) apply.
-            Stockroom takes 0%.
+            Card payments processed by Stockroom via Stripe Checkout. Stripe
+            fees (~2.9% + $0.30) apply; Stockroom&apos;s platform commission
+            is 0%. Maker payouts are coordinated separately (no connected
+            Stripe account in v1).
           </p>
         </section>
 
@@ -46,8 +49,8 @@ export default function LandingPage() {
                 body: "You bring the buyers, you keep the emails, you set the terms. Stockroom is a tool — not a channel between you and your customers.",
               },
               {
-                title: "Zero platform fees",
-                body: "$0 platform commission on every order. You pay Stripe processing (~2.9% + $0.30) and that's it. Compare that to Faire's 15%+.",
+                title: "Zero platform commission",
+                body: "$0 platform commission on every order. Only Stripe processing fees (~2.9% + $0.30) apply. Compare that to Faire's 15%+.",
               },
             ].map((f) => (
               <div key={f.title}>
@@ -64,8 +67,8 @@ export default function LandingPage() {
             {[
               ["1", "Add your line sheet", "Products, wholesale prices, MOQs, case packs."],
               ["2", "Share your link", "stockroom.app/w/your-brand. Email it, DM it, put it on your line sheet PDF."],
-              ["3", "Buyers order & pay", "Card payment via Stripe Checkout. You get an order notification."],
-              ["4", "Fulfill & ship", "Mark orders paid → fulfilled from your dashboard. You keep 100%."],
+              ["3", "Buyers order & pay", "Card payment via platform Stripe Checkout. You get an order notification."],
+              ["4", "Fulfill & ship", "Mark orders paid → fulfilled from your dashboard. Stockroom takes 0% commission; payouts to you are coordinated separately."],
             ].map(([n, t, b]) => (
               <li key={n} className="card">
                 <div className="text-orange-700 font-mono text-xs mb-2">

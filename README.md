@@ -5,18 +5,21 @@
 > Not a marketplace. Your buyers. Your link. Zero commission.
 
 Stockroom gives makers a shareable line-sheet URL (`/w/your-brand`). Buyers
-build an order, meet minimums, and pay by card via Stripe Checkout. You keep
-100% of the sale — Stockroom takes a $0 platform commission on both plans.
-You only pay Stripe processing fees (~2.9% + $0.30) directly to Stripe.
+build an order, meet minimums, and pay by card via Stripe Checkout.
+Stockroom takes a **$0 platform commission** on both plans — only Stripe
+processing fees (~2.9% + $0.30 per order) apply.
 
 - **Free — $0/mo:** 1 storefront link, up to 10 SKUs
 - **Pro — $29/mo:** unlimited links & SKUs, per-buyer pricing, custom branding
   (logo + colors)
 
-Merchant of record for this MVP is the platform: wholesale orders are charged
-through platform Stripe Checkout and Pro subscriptions are charged through
-Stripe Billing. There is **no Stripe Connect** in v1, **no tax engine**, and
-prices are **USD only**.
+**Merchant of record for v1 is Stockroom (the platform).** Wholesale orders
+are charged through platform Stripe Checkout and Pro subscriptions are
+charged through Stripe Billing. There is **no Stripe Connect** in v1, **no
+tax engine**, and prices are **USD only**. Payouts to makers are coordinated
+separately during onboarding — makers do **not** connect their own Stripe
+account in v1. Direct maker settlement (e.g. Stripe Connect) is on the
+post-launch roadmap.
 
 ## Stack
 
