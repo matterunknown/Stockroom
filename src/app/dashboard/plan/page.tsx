@@ -91,8 +91,9 @@ export default async function PlanPage({
       </div>
       <p className="text-xs text-ink/50">
         Stockroom charges <strong>zero commission</strong> on your orders on
-        both plans. You pay Stripe processing fees (~2.9% + $0.30) directly to
-        Stripe.
+        both plans. Stripe processing fees (~2.9% + $0.30 per order) apply.
+        Stockroom is the merchant of record for v1; payouts to makers are
+        coordinated separately (no connected Stripe account required).
       </p>
     </div>
   );
