@@ -1,0 +1,112 @@
+// Stockroom Prisma schema
+// Local development uses SQLite. In production, switch `provider` to
+// "postgresql" and set DATABASE_URL to your Postgres connection string.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  brand        Brand?
+  sessions     Session[]
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+model Brand {
+  id                 String   @id @default(cuid())
+  userId             String   @unique
+  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  slug               String   @unique
+  name               String
+  plan               String   @default("free") // "free" | "pro"
+  logoUrl            String?
+  primaryColor       String   @default("#0f172a")
+  accentColor        String   @default("#c2410c")
+  tagline            String?
+  stripeCustomerId   String?
+  stripeSubscriptionId String?
+  createdAt          DateTime @default(now())
+
+  products       Product[]
+  orders         Order[]
+  buyerOverrides BuyerPriceOverride[]
+}
+
+model Product {
+  id                  String   @id @default(cuid())
+  brandId             String
+  brand               Brand    @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  name                String
+  description         String?
+  imageUrl            String?
+  wholesalePriceCents Int
+  moq                 Int      @default(1)
+  unit                String   @default("unit")
+  stock               Int?
+  active              Boolean  @default(true)
+  createdAt           DateTime @default(now())
+
+  orderItems     OrderItem[]
+  buyerOverrides BuyerPriceOverride[]
+}
+
+model Order {
+  id                    String   @id @default(cuid())
+  brandId               String
+  brand                 Brand    @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  buyerEmail            String
+  buyerName             String?
+  buyerCompany          String?
+  status                String   @default("new") // "new" | "paid" | "fulfilled"
+  subtotalCents         Int      @default(0)
+  totalCents            Int      @default(0)
+  stripeSessionId       String?  @unique
+  stripePaymentIntentId String?
+  notes                 String?
+  createdAt             DateTime @default(now())
+  paidAt                DateTime?
+  fulfilledAt           DateTime?
+
+  items OrderItem[]
+}
+
+model OrderItem {
+  id             String   @id @default(cuid())
+  orderId        String
+  order          Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId      String
+  product        Product  @relation(fields: [productId], references: [id])
+  productName    String
+  unitPriceCents Int
+  quantity       Int
+  totalCents     Int
+}
+
+model BuyerPriceOverride {
+  id             String  @id @default(cuid())
+  brandId        String
+  brand          Brand   @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  productId      String
+  product        Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  buyerEmail     String
+  unitPriceCents Int
+
+  @@unique([brandId, productId, buyerEmail])
+}
