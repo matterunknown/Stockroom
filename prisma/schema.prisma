@@ -1,13 +1,13 @@
 // Stockroom Prisma schema
-// Local development uses SQLite. In production, switch `provider` to
-// "postgresql" and set DATABASE_URL to your Postgres connection string.
+// Uses Postgres (Neon in production on Vercel). Set DATABASE_URL to a
+// Postgres connection string in both local dev and production.
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 

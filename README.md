@@ -22,8 +22,8 @@ prices are **USD only**.
 
 - Next.js 14 (App Router) + TypeScript + Tailwind CSS
 - Prisma ORM
-  - **Local dev:** SQLite (`file:./prisma/dev.db`)
-  - **Production:** Postgres (see [Postgres notes](#postgres-in-production))
+  - **Postgres everywhere** — local dev and production both use Postgres
+  - **Production:** Neon Postgres on Vercel (see [Postgres notes](#postgres-in-production))
 - Stripe Checkout (wholesale payments) + Stripe Billing (Pro subscription)
 - Auth: email + password (bcrypt hashes), opaque session cookie
 - Vercel-ready
@@ -39,7 +39,7 @@ cp .env.example .env
 
 Edit `.env`:
 
-- `DATABASE_URL` — leave the default `file:./prisma/dev.db` for local dev
+- `DATABASE_URL` — Postgres connection string (e.g. a local Postgres or a Neon dev branch)
 - `SESSION_SECRET` — any long random string
 - `APP_URL` — `http://localhost:3000` for local dev
 - `STRIPE_SECRET_KEY` / `STRIPE_PUBLISHABLE_KEY` — from your Stripe test dashboard
@@ -105,28 +105,32 @@ Shopify sync, freelancer invoicing.
 
 ## Postgres in production
 
-For production, use Postgres. Two edits are needed to `prisma/schema.prisma`:
+Production runs on **Neon Postgres** (via Vercel). The Prisma datasource is
+already `provider = "postgresql"` and reads `DATABASE_URL`, so no schema
+edits are required — just point `DATABASE_URL` at your Neon connection
+string.
 
-1. Change `provider = "sqlite"` to `provider = "postgresql"` in the
-   `datasource` block.
-2. Deploy with a Postgres connection string in `DATABASE_URL`, e.g.
-   `postgresql://user:pass@host:5432/stockroom?schema=public`.
-
-Then run migrations against the Postgres database:
+Initialize the production database against Neon (from your local machine,
+with `DATABASE_URL` set to the Neon connection string):
 
 ```bash
-npx prisma migrate deploy
-# or, for a fresh schema push during early prototyping:
+# Push the current schema to Neon (fine for early / prototype deploys)
 npx prisma db push
+
+# Seed the demo brand (demo@stockroom.local / cedar-and-sage storefront)
+npx prisma db seed
 ```
 
+For a proper migration history, use `npx prisma migrate deploy` instead of
+`db push` once you have committed migrations under `prisma/migrations/`.
+
 `npm run build` runs `prisma generate` automatically so the client picks up
-the correct provider at deploy time.
+the schema at deploy time.
 
 Deploying to Vercel: add every variable from `.env.example` under Project
-Settings → Environment Variables, point `DATABASE_URL` at Postgres, and set
-your production `APP_URL` and Stripe webhook endpoint
-(`https://<your-domain>/api/stripe/webhook`).
+Settings → Environment Variables, point `DATABASE_URL` at your Neon Postgres
+connection string, and set your production `APP_URL` and Stripe webhook
+endpoint (`https://<your-domain>/api/stripe/webhook`).
 
 ## Scripts
 
