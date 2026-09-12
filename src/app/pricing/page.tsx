@@ -13,8 +13,8 @@ export default function PricingPage() {
           Simple pricing. Zero commission.
         </h1>
         <p className="text-ink/70 max-w-2xl">
-          Stockroom never takes a cut of your sales. You pay Stripe processing
-          fees (~2.9% + $0.30 per order) directly to Stripe — that&apos;s it.
+          Stockroom never takes a cut of your sales. Only Stripe processing
+          fees (~2.9% + $0.30 per order) apply — that&apos;s it.
         </p>
 
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
