@@ -1,3 +1,4 @@
+import "./env";
 import { PrismaClient } from "@prisma/client";
 
 // Vercel's Neon (Marketplace) integration injects POSTGRES_* env vars —
