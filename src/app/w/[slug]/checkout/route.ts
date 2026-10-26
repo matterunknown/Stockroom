@@ -20,10 +20,11 @@ const bodySchema = z.object({
 
 export async function POST(
   req: Request,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
+  const { slug } = await params;
   const brand = await prisma.brand.findUnique({
-    where: { slug: params.slug },
+    where: { slug },
   });
   if (!brand) {
     return NextResponse.json({ error: "Brand not found" }, { status: 404 });
